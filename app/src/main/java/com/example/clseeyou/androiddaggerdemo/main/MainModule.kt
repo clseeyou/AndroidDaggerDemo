@@ -1,16 +1,23 @@
 package com.example.clseeyou.androiddaggerdemo.main
 
+import com.example.clseeyou.androiddaggerdemo.di.ActivityScoped
+import com.example.clseeyou.androiddaggerdemo.di.FragmentScoped
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
+import dagger.android.ContributesAndroidInjector
 
 /**
- * 作者 chenli
- * 日期 2017/11/13
- * 描述 Main Module
- **/
+ * This is a Dagger module. We use this to pass in the View dependency to the
+ * {@link MainPresenter}.
+ */
 @Module
-class MainModule(private val view: MainContract.View) {
+abstract class MainModule {
 
-    @Provides
-    fun provideMainContractView() = view
+    @FragmentScoped
+    @ContributesAndroidInjector
+    internal abstract fun mainFragment(): MainFragment
+
+    @ActivityScoped
+    @Binds
+    internal abstract fun mainPresenter(presenter: MainPresenter): MainContract.Presenter
 }

@@ -4,18 +4,16 @@ import com.example.clseeyou.androiddaggerdemo.BasePresenter
 import com.example.clseeyou.androiddaggerdemo.BaseView
 
 /**
- * 作者 chenli
- * 日期 2017/11/10
- * 描述 MVP-Main Contact
- **/
+ * This specifies the contract between the view and the presenter.
+ */
 interface MainContract {
 
-    interface View : BaseView<Presenter> {
+    interface View : BaseView {
 
         val isActive: Boolean
 
         fun showText(text: String)
     }
 
-    interface Presenter : BasePresenter
+    interface Presenter : BasePresenter<View>
 }

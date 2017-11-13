@@ -1,24 +1,24 @@
 package com.example.clseeyou.androiddaggerdemo.main
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.clseeyou.androiddaggerdemo.R
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
 /**
- * 作者 chenli
- * 日期 2017/11/10
- * 描述 Main Fragment
- **/
-
-class MainFragment: Fragment(), MainContract.View {
+ * Main UI for the main screen.
+ */
+class MainFragment @Inject
+constructor() : DaggerFragment(), MainContract.View {
 
     private lateinit var textView: TextView
 
-    override lateinit var presenter: MainContract.Presenter
+    @Inject
+    internal lateinit var presenter: MainContract.Presenter
 
     override var isActive: Boolean = false
         get() = isAdded
@@ -29,12 +29,12 @@ class MainFragment: Fragment(), MainContract.View {
 
     override fun onResume() {
         super.onResume()
-        presenter.subcribe()
+        presenter.takeView(this)
     }
 
     override fun onPause() {
         super.onPause()
-        presenter.unsubcribe()
+        presenter.dropView()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -44,10 +44,5 @@ class MainFragment: Fragment(), MainContract.View {
         }
 
         return root
-    }
-
-    companion object {
-
-        fun newInstance() = MainFragment()
     }
 }

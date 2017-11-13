@@ -35,4 +35,8 @@ dependencies {
     // Dagger dependencies
     implementation "com.google.dagger:dagger:$rootProject.daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
+
+    implementation "com.google.dagger:dagger-android:$rootProject.daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$rootProject.daggerVersion" // if you use the support libraries
+    kapt "com.google.dagger:dagger-android-processor:$rootProject.daggerVersion"
 }

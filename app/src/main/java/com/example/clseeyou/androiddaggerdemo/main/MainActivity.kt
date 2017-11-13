@@ -2,38 +2,33 @@ package com.example.clseeyou.androiddaggerdemo.main
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import com.example.clseeyou.androiddaggerdemo.Constants
-import com.example.clseeyou.androiddaggerdemo.DemoApplication
 import com.example.clseeyou.androiddaggerdemo.R
-import com.example.clseeyou.androiddaggerdemo.di.FragmentScoped
+import com.example.clseeyou.androiddaggerdemo.util.SP_KEY_TEXT
+import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
-@FragmentScoped
-class MainActivity : AppCompatActivity() {
+/**
+ * Show main UI.
+ */
+class MainActivity : DaggerAppCompatActivity() {
 
     @Inject
-    lateinit var sharedPreferences: SharedPreferences
+    internal lateinit var sharedPreferences: SharedPreferences
 
     @Inject
-    lateinit var presenter: MainPresenter
+    internal lateinit var presenter: MainPresenter
+    @Inject
+    internal lateinit var fragment: MainFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val fragment = supportFragmentManager.findFragmentById(R.id.contentFrame) as MainFragment? ?:
-                MainFragment.newInstance().also {
+        supportFragmentManager.findFragmentById(R.id.contentFrame) as MainFragment? ?:
+                this.fragment.also {
                     supportFragmentManager.beginTransaction().add(R.id.contentFrame, it).commit()
                 }
 
-        // Create the presenter
-        DaggerMainComponent.builder()
-                .mainModule(MainModule(fragment))
-                .netComponent((application as DemoApplication).netComponent)
-                .build()
-                .inject(this)
-
-        sharedPreferences.edit().putString(Constants.SP_KEY_TEXT, getString(R.string.hello)).apply()
+        sharedPreferences.edit().putString(SP_KEY_TEXT, getString(R.string.hello)).apply()
     }
 }

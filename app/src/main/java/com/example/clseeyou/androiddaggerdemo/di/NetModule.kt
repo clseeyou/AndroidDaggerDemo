@@ -8,10 +8,8 @@ import dagger.Provides
 import javax.inject.Singleton
 
 /**
- * 作者 chenli
- * 日期 2017/11/10
- * 描述 Net Module
- **/
+ * This is used by Dagger to inject the required arguments into the {@link SharedPreferences}.
+ */
 @Module
 class NetModule {
 

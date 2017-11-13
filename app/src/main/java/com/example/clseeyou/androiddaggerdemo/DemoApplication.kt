@@ -1,23 +1,31 @@
 package com.example.clseeyou.androiddaggerdemo
 
-import android.app.Application
-import com.example.clseeyou.androiddaggerdemo.di.*
+import android.content.SharedPreferences
+import android.support.annotation.VisibleForTesting
+import com.example.clseeyou.androiddaggerdemo.di.DaggerAppComponent
+import dagger.android.AndroidInjector
+import dagger.android.DaggerApplication
+import javax.inject.Inject
 
 /**
- * 作者 chenli
- * 日期 2017/11/9
- * 描述 Application
- **/
-class DemoApplication : Application() {
+ * We create a custom {@link Application} class that extends  {@link DaggerApplication}.
+ * We then override applicationInjector() which tells Dagger how to make our @Singleton Component
+ * We never have to call `component.inject(this)` as {@link DaggerApplication} will do that for us.
+ */
+class DemoApplication : DaggerApplication() {
 
-    lateinit var netComponent: NetComponent
+//    /**
+//     * Our Espresso tests need to be able to get an instance of the [SharedPreferences]
+//     * so that we can delete all tasks before running each test
+//     */
+//    @get:VisibleForTesting
+//    @Inject
+//    lateinit var sharedPreferences: SharedPreferences
+//        internal set
 
-    override fun onCreate() {
-        super.onCreate()
-
-        netComponent = DaggerNetComponent.builder()
-                .applicationModule(ApplicationModule(this))
-                .netModule(NetModule())
-                .build()
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+        val appComponent = DaggerAppComponent.builder().application(this).build()
+        appComponent.inject(this)
+        return appComponent
     }
 }
