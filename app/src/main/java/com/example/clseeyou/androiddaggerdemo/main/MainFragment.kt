@@ -14,11 +14,11 @@ import com.example.clseeyou.androiddaggerdemo.R
  * 描述 Main Fragment
  **/
 
-class MainFragment: Fragment(), MainContact.View {
+class MainFragment: Fragment(), MainContract.View {
 
     private lateinit var textView: TextView
 
-    override lateinit var presenter: MainContact.Presenter
+    override lateinit var presenter: MainContract.Presenter
 
     override var isActive: Boolean = false
         get() = isAdded

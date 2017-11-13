@@ -9,8 +9,8 @@ import dagger.Provides
  * 描述 Main Module
  **/
 @Module
-class MainModule(private val view: MainContact.View) {
+class MainModule(private val view: MainContract.View) {
 
     @Provides
-    fun provideMainContactView() = view
+    fun provideMainContractView() = view
 }

@@ -8,7 +8,7 @@ import com.example.clseeyou.androiddaggerdemo.BaseView
  * 日期 2017/11/10
  * 描述 MVP-Main Contact
  **/
-interface MainContact {
+interface MainContract {
 
     interface View : BaseView<Presenter> {
 

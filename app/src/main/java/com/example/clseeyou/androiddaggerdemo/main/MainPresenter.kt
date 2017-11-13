@@ -10,7 +10,7 @@ import javax.inject.Inject
  * 描述 Main Presenter
  **/
 class MainPresenter @Inject
-constructor(private var sharedPreferences: SharedPreferences, private var view: MainContact.View) : MainContact.Presenter {
+constructor(private var sharedPreferences: SharedPreferences, private var view: MainContract.View) : MainContract.Presenter {
 
     override fun subcribe() {
         view.showText(sharedPreferences.getString(Constants.SP_KEY_TEXT, ""))
