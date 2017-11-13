@@ -13,7 +13,8 @@ import com.example.clseeyou.androiddaggerdemo.R
  * 日期 2017/11/10
  * 描述 Main Fragment
  **/
-class MainFragment : Fragment(), MainContact.View {
+
+class MainFragment: Fragment(), MainContact.View {
 
     private lateinit var textView: TextView
 
@@ -36,9 +37,9 @@ class MainFragment : Fragment(), MainContact.View {
         presenter.unsubcribe()
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val root = inflater?.inflate(R.layout.fragment_main, container, false)
-        with(root!!) {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val root = inflater.inflate(R.layout.fragment_main, container, false)
+        with(root) {
             textView = findViewById(R.id.text)
         }
 
@@ -47,8 +48,6 @@ class MainFragment : Fragment(), MainContact.View {
 
     companion object {
 
-//        var instance: MainFragment = MainFragment()
-//            private set
         fun newInstance() = MainFragment()
     }
 }

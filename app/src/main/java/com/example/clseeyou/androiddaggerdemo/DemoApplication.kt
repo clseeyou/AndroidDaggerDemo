@@ -1,6 +1,7 @@
 package com.example.clseeyou.androiddaggerdemo
 
 import android.app.Application
+import com.example.clseeyou.androiddaggerdemo.di.*
 
 /**
  * 作者 chenli
@@ -9,9 +10,14 @@ import android.app.Application
  **/
 class DemoApplication : Application() {
 
-//    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-//        val appComponent = DaggerAppComponent.builder().application(this).build()
-//        appComponent.inject(this)
-//        return appComponent
-//    }
+    lateinit var netComponent: NetComponent
+
+    override fun onCreate() {
+        super.onCreate()
+
+        netComponent = DaggerNetComponent.builder()
+                .applicationModule(ApplicationModule(this))
+                .netModule(NetModule())
+                .build()
+    }
 }

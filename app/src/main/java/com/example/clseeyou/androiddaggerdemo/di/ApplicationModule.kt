@@ -1,9 +1,8 @@
 package com.example.clseeyou.androiddaggerdemo.di
 
-import android.app.Application
 import android.content.Context
-import dagger.Binds
 import dagger.Module
+import dagger.Provides
 
 /**
  * 作者 chenli
@@ -11,9 +10,8 @@ import dagger.Module
  * 描述 Application Module
  **/
 @Module
-abstract class ApplicationModule {
+class ApplicationModule(private val context: Context) {
 
-    //expose Application as an injectable context
-    @Binds
-    abstract fun bindContext(application: Application): Context
+    @Provides
+    fun provideContext(): Context = context
 }

@@ -1,21 +1,27 @@
 package com.example.clseeyou.androiddaggerdemo.main
 
+import android.content.SharedPreferences
+import com.example.clseeyou.androiddaggerdemo.Constants
+import javax.inject.Inject
+
 /**
  * 作者 chenli
  * 日期 2017/11/10
- * 描述 TODO
+ * 描述 Main Presenter
  **/
-class MainPresenter(private val view: MainContact.View) : MainContact.Presenter {
-
-    init {
-        view.presenter = this
-    }
+class MainPresenter @Inject
+constructor(private var sharedPreferences: SharedPreferences, private var view: MainContact.View) : MainContact.Presenter {
 
     override fun subcribe() {
-        view.showText("Hello World")
+        view.showText(sharedPreferences.getString(Constants.SP_KEY_TEXT, ""))
     }
 
     override fun unsubcribe() {
         view.showText("")
+    }
+
+    @Inject
+    fun setupListeners() {
+        view.presenter = this
     }
 }
